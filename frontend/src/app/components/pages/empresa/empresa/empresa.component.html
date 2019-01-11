@@ -1,0 +1,57 @@
+<!-- /.row -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-body">
+      <h2 class="box-title m-b-0">{{empresaService.empresa.nombre }}</h2>
+      <p class="text-muted m-b-30 font-13"></p>
+      <div class="row">
+        <div class="col-sm-12 col-xs-12">
+          <form>
+            <!-- <div class="form-group">
+              <label for="exampleInputEmail1"><b>Nombre de la Empresa</b></label>
+              <h6>{{empresaService.empresa.nombre }}</h6>
+
+            </div> -->
+            <div class="form-group">
+              <label for="exampleInputEmail1"><b>Tipo de Empresa</b></label>
+              <h6>{{empresaService.empresa.tipo }}</h6>
+            </div>
+            <div class="form-group" *ngIf="empresaService.empresa.correo">
+              <label for="exampleInputEmail1"><b>Correo</b></label>
+              <h6>{{empresaService.empresa.correo }}</h6>
+            </div>
+            <div class="form-group" *ngIf="empresaService.empresa.telefono">
+              <label for="exampleInputEmail1"><b>Teléfono</b></label>
+              <h6>{{empresaService.empresa.telefono }}</h6>
+            </div>
+            <div class="form-group" *ngIf="empresaService.empresa.ruc">
+              <label for="exampleInputEmail1"><b>RUC</b></label>
+              <h6>{{empresaService.empresa.ruc }}</h6>
+            </div>
+            <div class="form-group" *ngIf="empresaService.empresa.inicio_periodo">
+              <label for="exampleInputEmail1"><b>Inicio de Periodo Contable</b></label>
+              <h6>{{empresaService.empresa.inicio_periodo | date : "dd/MM/yyyy" :'+0500' }}</h6>
+            </div>
+            <div class="form-group" *ngIf="empresaService.empresa.fin_periodo">
+              <label for="exampleInputEmail1"><b>Fin de Periodo Contable</b></label>
+              <h6>{{empresaService.empresa.fin_periodo | date : "dd/MM/yyyy" :'+0500' }}</h6>
+            </div>
+            <div class="form-group" *ngIf="empresaService.empresa.descripcion">
+                <label for="exampleInputEmail1"><b>Descripción</b></label>
+                <h6>{{empresaService.empresa.descripcion }}</h6>
+              </div>
+
+            <!-- <div class="form-group">
+              <label for="exampleInputPassword1"><b>Teléfono</b></label>
+
+            </div>
+            <div class="form-group">
+              <label for="shortDescription1"><b>Descripción</b></label>
+
+            </div> -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

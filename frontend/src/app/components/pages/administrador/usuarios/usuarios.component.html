@@ -1,0 +1,152 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <form #usuarioForm="ngForm" (ngSubmit)="agregarUsuario(usuarioForm)">
+                    <div class="form-body">
+                        <h3 class="card-title">Agregar Usuario</h3>
+                        <hr>
+                        <div class="row p-t-20">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Nombre de Usuario</label>
+                                    <input name="usuario" type="text" id="firstName" class="form-control" placeholder="Nombre de Usuario"
+                                        ngModel required>
+                                    <!-- <small class="form-control-feedback"> This is inline help </small>  -->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Rol de la cuenta</label>
+                                    <select name="rol" class="form-control custom-select" data-placeholder="Seleccionar"
+                                        tabindex="1" ngModel required>
+                                        <option value="" disabled selected>Seleccionar</option>
+                                        <option value="user">Usuario</option>
+                                        <option value="admin">Administrador</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+
+                            <div class="col-md-6">
+                                <div class="form-group has-danger">
+                                    <label class="control-label">Contraseña</label>
+                                    <input type="password" name="password" class="form-control form-control-danger"
+                                        placeholder="Contraseña" ngModel required>
+                                    <!-- <small class="form-control-feedback"> This field has error. </small> -->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group has-danger">
+                                    <label class="control-label">Confirmar Contraseña</label>
+                                    <input type="password" name="password2" class="form-control form-control-danger"
+                                        placeholder="Confirmar contraseña" ngModel required>
+                                    <!-- <small class="form-control-feedback"> This field has error. </small> -->
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Usuarios</h3>
+                <div class="table-responsive">
+                    <table class="table color-bordered-table inverse-bordered-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Usuario</th>
+                                <th>Privilegio</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let usuario of usuarioService.usuarios;let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{usuario.usuario}}</td>
+                                <td>{{usuario.rol}}</td>
+                                <td>
+                                    <button (click)="abrirModal(usuario)" type="button" class="btn btn-info"
+                                        data-toggle="modal" data-target="#responsive-modal" aria-haspopup="true"
+                                        aria-expanded="true">
+                                        <i class="ti-pencil-alt"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button (click)="eliminarUsuario(usuario._id,usuario.usuario)" type="button" class="btn btn-danger"
+                                        aria-haspopup="true" aria-expanded="true">
+                                        <i class="ti-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Editar datos del Usuario</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form #usuarioFormA="ngForm" (ngSubmit)="agregarUsuario(usuarioFormA)">
+                    <input type="hidden" name="_id" [ngModel]="usuarioService.selectedUsuario._id">
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Usuario</label>
+                        <input name="usuario" [ngModel]="usuarioService.selectedUsuario.usuario" type="text" class="form-control"
+                            ngModel required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Rol de la cuenta</label>
+                        <select [ngModel]="usuarioService.selectedUsuario.rol" class="form-control custom-select" name="rol"
+                            data-placeholder="Choose a Category" tabindex="1" ngModel required>
+                            <option value="" disabled selected>Seleccionar</option>
+                            <option value="user">Usuario</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Nueva Contraseña</label>
+                        <input id="password" name="password" type="password" class="form-control"
+                            ngModel required>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Confirmar Contraseña</label>
+                        <input id="password2" name="password2" type="password" class="form-control"
+                            ngModel required>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cerrarModal" type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger waves-effect waves-light">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

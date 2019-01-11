@@ -1,0 +1,218 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <form #Form="ngForm" (ngSubmit)="registrarTransaccion(Form)">
+          <div class="form-body">
+            <h3 class="card-title">Registrar Transacción</h3>
+            <hr>
+            <div class="row p-t-20">
+              <div class="col-md-4">
+                <div class="form-group has-danger">
+                  <label class="control-label">Fecha</label>
+                  <input id="fechaElement" [ngModel]="fechaTemporalMostrar" name="fecha" class="form-control form-control-danger"
+                    type="text" onfocus="(this.type='date')" onblur="(this.type='text')" required placeholder="Fecha"
+                    ngModel>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-danger">
+                  <label class="control-label">Descripcion</label>
+                  <input id="descripcionElement" [ngModel]="descripcionMostrar" type="text" name="descripcion"
+                    class="form-control form-control-danger" placeholder="Descripcion" required ngModel>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label">Cuenta {{disparador+1}}</label>
+                  <select [ngModel]="undefined" id="cuenta" name="cuenta" class="form-control custom-select"
+                    data-placeholder="Seleccionar" tabindex="1" required ngModel>
+                    <option value="" disabled selected>Seleccionar Cuenta</option>
+                    <ng-container *ngFor="let cuenta of cuentaService.cuentas">
+                      <option value="{{[cuenta.numc,cuenta.nombre,cuenta.tipo]}}">{{cuenta.numc}}. {{cuenta.nombre}}</option>
+                    </ng-container>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group has-danger">
+                  <label class="control-label">Monto {{disparador+1}}</label>
+                  <input [ngModel]="undefined" id="monto" type="number" name="monto" class="form-control form-control-danger"
+                    placeholder="Monto" required ngModel>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label">Acción {{disparador+1}}</label>
+                  <select [ngModel]="undefined" id="accion" name="accion" class="form-control custom-select"
+                    data-placeholder="Seleccionar" tabindex="1" required ngModel>
+                    <option value="" disabled selected>Seleccionar</option>
+                    <option value="aumenta">Aumenta</option>
+                    <option value="disminuye">Disminuye</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="container">
+
+              <div class="row justify-content-between">
+            <div class="col-auto mr-auto">
+                <button (click)="almacenarTransaccion(Form)" type="button" class="btn waves-effect waves-light btn-info">Siguiente
+                  Cuenta</button>
+              </div>
+              <div class="col">
+                  <button id="resetear" disabled (click)="resetearValores(Form)" type="button" class="btn waves-effect waves-light btn-info">
+                    Resetear</button>
+                </div>
+              <div class="col-auto">
+                <button id="terminar" disabled type="submit" class="btn waves-effect waves-light btn-danger">Registrar
+                  transacción</button>
+              </div>
+
+            <!-- &nbsp; -->
+
+            <!-- <button type="submit" class="btn btn-inverse waves-effect waves-light">Cancelar</button>  -->
+          </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title" style="text-align:center">TRANSACCIONES</h3>
+        <h5 class="card-title" style="text-align:center">del {{empresaService.selectedEmpresa.inicio_periodo | date : 'dd/MM/yyyy' :'+0500'}} al {{empresaService.selectedEmpresa.fin_periodo | date : 'dd/MM/yyyy' :'+0500'}}</h5>
+        <br>
+        <ng-container *ngFor="let transaccion of transaccionService.transacciones;let i= index ">
+
+          <div class="row">
+            <div class="col-md-10">
+              <h4>Transacción {{i+1}} - {{transaccion.fecha | date : "dd/MM/yyyy" :'+0500'}}</h4>
+            </div>
+            <div class="col-md-2" *ngIf="privilegios == 'admin'">
+              <button (click)="cargarDatosTransaccion(transaccion)" type="button" class="btn btn-info" data-toggle="modal"
+                data-target="#responsive-modal" aria-haspopup="true" aria-expanded="true">
+                <i class="ti-pencil-alt"></i>
+              </button>
+              &nbsp;
+              <button (click)="eliminarTransaccion(transaccion._id)" type="button" class="btn btn-danger" aria-haspopup="true"
+                aria-expanded="true">
+                <i class="ti-trash"></i>
+              </button>
+            </div>
+          </div>
+          <br>
+          <div class="table-responsive">
+            <table class="table color-bordered-table info-bordered-table">
+              <thead>
+                <tr>
+                  <th>N° Cuenta</th>
+                  <th>Cuenta</th>
+                  <th>Aumenta</th>
+                  <th>Disminuye</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let cuenta of transaccion.cuenta;">
+                  <tr>
+                    <td>{{cuenta.numero}}</td>
+                    <td>{{cuenta.nombre}}</td>
+                    <ng-container *ngIf="cuenta.accion == 'aumenta';else falso">
+                      <td>{{cuenta.monto}}</td>
+                      <td></td>
+                    </ng-container>
+                    <ng-template #falso>
+                      <td></td>
+                      <td>{{cuenta.monto}}</td>
+                    </ng-template>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <br>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Editar Transacción -->
+<div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Editar datos de la Transacción</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <form #transaccionFormA="ngForm" (ngSubmit)="editarTransaccion(transaccionFormA)">
+          <input type="hidden" name="_id" [ngModel]="transaccionService.selectedTransaccion._id">
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Fecha</label>
+            <input name="fecha" [ngModel]="transaccionService.selectedTransaccion.fecha" type="text" onfocus="(this.type='date')"
+              onblur="(this.type='text')" class="form-control" ngModel required>
+          </div>
+          <div class="row p-t-20" *ngFor="let cuenta of transaccionService.selectedTransaccion.cuenta;let i = index">
+              <input type="hidden" name="_id{{i+1}}" [ngModel]="cuenta._id">
+            <div class="col-md-5">
+              <div class="form-group">
+                <label class="control-label">Catálogo</label>
+                <select name="cuenta{{i+1}}" class="form-control custom-select" data-placeholder="Seleccionar" tabindex="1"
+                  ngModel required>
+                  <option value="" disabled selected>{{cuenta.numero}}. {{cuenta.nombre}}</option>
+                  <ng-container *ngFor="let c of cuentaService.cuentas;">
+                    <option value="{{[c.numc,c.nombre,c.tipo]}}">{{c.numc}}. {{c.nombre}}</option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group has-danger">
+                <label class="control-label">Monto</label>
+                <input name="monto{{i+1}}" [ngModel]="cuenta.monto" class="form-control form-control-danger" type="number"
+                  required ngModel>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Acción</label>
+                <select name="accion{{i+1}}" class="form-control custom-select" data-placeholder="Seleccionar" tabindex="1"
+                  ngModel required>
+                  <option value="" disabled selected>{{cuenta.accion}}</option>
+                  <option value="aumenta">Aumenta</option>
+                  <option value="disminuye">Disminuye</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Descripción</label>
+            <input name="descripcion" [ngModel]="transaccionService.selectedTransaccion.descripcion" type="text" class="form-control"
+              ngModel required>
+          </div>
+
+          <div class="modal-footer">
+            <button id="cerrarModal" type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-danger waves-effect waves-light">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-12">
+      <div class="card">
+          <div class="card-body">
+              <h3 class="card-title">Catálogo de Cuentas</h3>
+              <ul class="nav nav-pills m-t-30 m-b-30">
+                  <li class=" nav-item"> <a (click)="cargarDatosActivos()" href="#navpills-1" class="nav-link active show" data-toggle="tab" aria-expanded="false">Activo</a> </li>
+                  <li class="nav-item"> <a (click)="cargarDatosPasivos()" href="#navpills-2" class="nav-link" data-toggle="tab" aria-expanded="false">Pasivo</a> </li>
+                  <li class="nav-item"> <a (click)="cargarDatosCapital()" href="#navpills-3" class="nav-link" data-toggle="tab" aria-expanded="true">Capital</a> </li>
+                  <li class="nav-item"> <a (click)="cargarDatosGastos()" href="#navpills-3" class="nav-link" data-toggle="tab" aria-expanded="true">Gastos</a> </li>
+                  <li class="nav-item"> <a (click)="cargarDatosIngresos()" href="#navpills-3" class="nav-link" data-toggle="tab" aria-expanded="true">Ingresos</a> </li>
+              </ul>
+              <div class="tab-content br-n pn">
+                <table id="example23" class="display nowrap table table-bordered" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>N° Cuenta</th>
+                      <th>Nombre</th>
+                    </tr>
+                  </thead>
+      
+                  <tbody>
+                    <ng-container *ngFor="let cuenta of cuentaService.cuentas">
+                      <tr *ngIf="cuenta.numc % 1 == 0; else subcuenta" style="color:black;background-color:#e9edf2">
+                        <td><h4>{{cuenta.numc}}</h4></td>
+                        <td><h4>{{cuenta.nombre}}</h4></td>
+                      </tr>
+                      <ng-template #subcuenta>
+                        <tr>
+                          <td>{{cuenta.numc}}</td>
+                          <td>{{cuenta.nombre}}</td>
+                        </tr>
+                      </ng-template>
+                    </ng-container>
+      
+                  </tbody>
+                </table>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+          <div>
+              <div class="row">
+                  <div class="col-auto mr-auto"></div>
+                  <div class="col-auto">
+                      <a style="background-color: #ffb22b; border:#ffb22b 2px solid;" (click)="generatePDF()" class="dt-button buttons-print btn btn-primary" tabindex="0" aria-controls="example23" href="#"><span>PDF</span></a>
+                  </div>
+                </div>
+            </div>
+
+
+
+            <div id="pdf">
+                <h5 class="card-title" style="text-align:center">{{empresaService.selectedEmpresa.nombre}}
+                    {{empresaService.selectedEmpresa.tipo}}</h5>
+                  <h3 class="card-title" style="text-align:center">BALANZA DE COMPROBACIÓN</h3>
+                  <h5 class="card-title" style="text-align:center">del {{empresaService.selectedEmpresa.inicio_periodo | date :
+                    'dd/MM/yyyy' :'+0500'}} al {{empresaService.selectedEmpresa.fin_periodo | date : 'dd/MM/yyyy' :'+0500'}}</h5>
+                  <br>
+                <table class="table color-bordered-table warning-bordered-table">
+                  <thead>
+                    <tr>
+                      <th>N° Cuenta</th>
+                      <th>Nombre</th>
+                      <th>Debe</th>
+                      <th>Haber</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let saldo of saldos">
+                      <ng-container *ngIf="saldo.totaldebe || saldo.totalhaber">
+                          <td>{{saldo.numero}}</td>
+                          <td>{{saldo.nombre}}</td>
+                          <ng-container *ngIf="saldo.totaldebe;">
+                            <td>{{saldo.totaldebe}}</td>
+                            <td></td>
+                          </ng-container>
+                          <ng-container *ngIf="saldo.totalhaber;">
+                            <td></td>
+                            <td>{{saldo.totalhaber}}</td>
+                          </ng-container>
+                      </ng-container>
+                    </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td style="border: #ffb22b 2px solid;font-weight: bold;">{{sumadebe}}</td>
+                        <td style="border: #ffb22b 2px solid;font-weight: bold;">{{sumahaber}}</td>
+                      </tr>
+                  </tbody>
+                </table>
+            </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

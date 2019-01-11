@@ -1,0 +1,125 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+          <div>
+              <div class="row">
+                <div class="col-auto mr-auto"></div>
+                <div class="col-auto">
+                  <a style="background-color: #263238; border:#263238 2px solid;" (click)="generatePDF()" class="dt-button buttons-print btn btn-primary"
+                    tabindex="0" aria-controls="example23" href="#"><span>PDF</span></a>
+                </div>
+              </div>
+            </div>
+            <div id="pdf">
+                <h5 class="card-title" style="text-align:center">{{empresaService.selectedEmpresa.nombre}}
+                    {{empresaService.selectedEmpresa.tipo}}</h5>
+                    <h3 class="card-title" style="text-align:center">ESTADO DE VARIACIÓN DEL CAPITAL CONTABLE</h3>
+                    <h5 class="card-title" style="text-align:center">del {{empresaService.selectedEmpresa.inicio_periodo | date :
+                    'dd/MM/yyyy' :'+0500'}} al {{empresaService.selectedEmpresa.fin_periodo | date : 'dd/MM/yyyy' :'+0500'}}</h5>
+                  <br>
+                <table class="table color-bordered-table dark-bordered-table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>CAPITAL SOCIAL</th>
+                      <th>UTILIDADES RETENIDAS</th>
+                      <th>TOTAL DE CAPITALES</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border: #263238 2px solid;">
+                      <td style="font-weight: bold;">SALDO INICIAL</td>
+                      <td style="border: #263238 2px solid;font-weight: bold;">{{capitalSocial}}</td>
+                      <td style="border: #263238 2px solid;font-weight: bold;">{{utilidadesRetenidas}}</td>
+                      <td style="border: #263238 2px solid;font-weight: bold;">{{capitalSocial + utilidadesRetenidas}}</td>
+                    </tr>
+                  </tbody>
+                  <tbody>
+                    <tr>
+                      <td style="font-weight: bold;">AUMENTOS</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+        
+                    <tr *ngFor="let capital of capitales">
+                      <ng-container *ngIf="capital.accion=='aumenta'">
+                        <td>{{capital.numero}}. {{capital.nombre}}</td>
+                        <ng-container *ngIf="capital.numero < 59 ; else falso">
+                          <td>{{capital.monto}}</td>
+                          <td></td>
+                          <td></td>
+                        </ng-container>
+                        <ng-template #falso>
+                          <td></td>
+                          <td>{{capital.monto}}</td>
+                          <td></td>
+                        </ng-template>
+                      </ng-container>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: bold;">Utilidad del ejercicio</td>
+                      <td></td>
+                      <td>{{utilidadNeta}}</td>
+                      <td></td>
+                    </tr>
+                    <tr style="border: #263238 2px solid;">
+                      <td style="font-weight: bold;">TOTAL DE AUMENTOS</td>
+                      <td style="border: #263238 2px solid;">{{sumaAumentoCapital}}</td>
+                      <td style="border: #263238 2px solid;">{{sumaAumentoRetenido+utilidadNeta}}</td>
+                      <td style="border: #263238 2px solid;font-weight: bold;">{{sumaAumentoCapital+sumaAumentoRetenido+utilidadNeta}}</td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: bold;">DISMINUYE</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+        
+                    <tr *ngFor="let capital of capitales">
+                      <ng-container *ngIf="capital.accion=='disminuye'">
+                        <td>{{capital.numero}}. {{capital.nombre}}</td>
+                        <ng-container *ngIf="capital.numero < 59 ; else falso">
+                          <td>{{capital.monto}}</td>
+                          <td></td>
+                          <td></td>
+                        </ng-container>
+                        <ng-template #falso>
+                          <td></td>
+                          <td>{{capital.monto}}</td>
+                          <td></td>
+                        </ng-template>
+                      </ng-container>
+                    </tr>
+        
+                    <tr style="border: #263238 2px solid;">
+                        <td style="font-weight: bold;">TOTAL DISMINUYE</td>
+                        <td style="border: #263238 2px solid;">{{sumaDisminuyeCapital}}</td>
+                        <td style="border: #263238 2px solid;">{{sumaDisminuyeRetenido}}</td>
+                        <td style="border: #263238 2px solid;font-weight: bold;">{{sumaDisminuyeCapital+sumaDisminuyeRetenido}}</td>
+                      </tr>
+        
+                      <tr>
+                    <td style="font-weight: bold;">SALDO FINAL</td>
+                          <td style="font-weight: bold;">{{capitalSocial + sumaAumentoCapital - sumaDisminuyeCapital}}</td>
+                          <td style="font-weight: bold;">{{utilidadesRetenidas + sumaAumentoRetenido+utilidadNeta-sumaDisminuyeRetenido}}</td>
+                          <td style="font-weight: bold;">{{capitalSocial + utilidadesRetenidas + sumaAumentoCapital+sumaAumentoRetenido+utilidadNeta -sumaDisminuyeCapital+sumaDisminuyeRetenido }}</td>
+                        </tr>
+        
+                  </tbody>
+        
+                  <!-- <tfoot>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td style="border: #263238 2px solid;font-weight: bold;">{{sumadebe}}</td>
+                      <td style="border: #263238 2px solid;font-weight: bold;">{{sumahaber}}</td>
+                    </tr>
+                  </tfoot> -->
+                </table>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>

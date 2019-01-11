@@ -1,0 +1,168 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <form #cuentaForm="ngForm" (ngSubmit)="agregarCuenta(cuentaForm)">
+                    <div class="form-body">
+                        <h3 class="card-title">Agregar Cuenta</h3>
+                        <hr>
+                        <div class="row p-t-20">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Nombre de la Cuenta</label>
+                                    <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingresar nombre"
+                                        ngModel required>
+                                    <!-- <small class="form-control-feedback"> This is inline help </small>  -->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group has-danger">
+                                    <label class="control-label">Número de Cuenta</label>
+                                    <input type="number" id="numc" name="numc" class="form-control form-control-danger"
+                                        placeholder="Numero de la cuenta" ngModel required>
+                                    <!-- <small class="form-control-feedback"> This field has error. </small> -->
+                                </div>
+                            </div>
+                            <!--/span-->
+
+                            <!--/span-->
+                        </div>
+                        <!--/row-->
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group has-success">
+                                    <label class="control-label">Gender</label>
+                                    <select class="form-control custom-select">
+                                        <option value="">Male</option>
+                                        <option value="">Female</option>
+                                    </select>
+                                    <small class="form-control-feedback"> Select your gender </small> </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Date of Birth</label>
+                                    <input type="date" class="form-control" placeholder="dd/mm/yyyy">
+                                </div>
+                            </div>
+                        </div> -->
+                        <!--/row-->
+                        <div class="row">
+
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Tipo de Cuenta</label>
+                                    <select class="form-control custom-select" name="tipo" data-placeholder="Choose a Category"
+                                        tabindex="1" ngModel required>
+                                        <option value="" disabled selected>Seleccionar Cuenta</option>
+                                        <option value="activo">Activo</option>
+                                        <option value="pasivo">Pasivo</option>
+                                        <option value="capital">Capital</option>
+                                        <option value="gastos">Gastos</option>
+                                        <option value="ingresos">Ingresos</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+                        <!-- <button type="submit" class="btn btn-inverse waves-effect waves-light">Cancelar</button>  -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Cuentas</h3>
+                <div class="table-responsive">
+                    <table class="table color-bordered-table success-bordered-table">
+                        <thead>
+                            <tr>
+                                <!-- <th>#</th> -->
+                                <th>N° Cuenta</th>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cuenta of cuentaService.cuentas;let i = index">
+                                <!-- <td>{{i+1}}</td> -->
+                                <td>{{cuenta.numc}}</td>
+                                <td>{{cuenta.nombre}}</td>
+                                <td>{{cuenta.tipo}}</td>
+                                <td>
+                                    <button (click)="cargarDatosCuenta(cuenta)" type="button" class="btn btn-info"
+                                        data-toggle="modal" data-target="#responsive-modal" aria-haspopup="true"
+                                        aria-expanded="true">
+                                        <i class="ti-pencil-alt"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button (click)="eliminarCuenta(cuenta._id,cuenta.nombre)" type="button" class="btn btn-danger"
+                                        aria-haspopup="true" aria-expanded="true">
+                                        <i class="ti-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Editar datos de la Cuenta</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form #cuentaFormA="ngForm" (ngSubmit)="agregarCuenta(cuentaFormA)">
+                    <input type="hidden" name="_id" [ngModel]="cuentaService.selectedCuenta._id">
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Cuenta</label>
+                        <input name="nombre" [ngModel]="cuentaService.selectedCuenta.nombre" type="text" class="form-control"
+                            ngModel required>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Número de Cuenta</label>
+                        <input name="numc" [ngModel]="cuentaService.selectedCuenta.numc" type="text" class="form-control"
+                            ngModel required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tipo de Cuenta</label>
+                        <select [ngModel]="cuentaService.selectedCuenta.tipo" class="form-control custom-select" name="tipo"
+                            data-placeholder="Choose a Category" tabindex="1" ngModel required>
+                            <option value="" disabled selected>Seleccionar Cuenta</option>
+                            <option value="activo">Activo</option>
+                            <option value="pasivo">Pasivo</option>
+                            <option value="capital">Capital</option>
+                            <option value="gastos">Gastos</option>
+                            <option value="ingresos">Ingresos</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cerrarModal" type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger waves-effect waves-light">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

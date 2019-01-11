@@ -1,0 +1,81 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<section id="wrapper" class="login-register login-sidebar" style="background-image:url(assets/images/background/login-register.jpg);">
+    <div class="login-box card">
+        <div class="card-body">
+
+
+
+            <form #registroForm="ngForm" (ngSubmit)="registrarse(registroForm)" class="form-horizontal form-material"
+                id="loginform">
+                <!-- <a href="javascript:void(0)" class="text-center db"><img src="assets/images/logo-icon.png" alt="Home" /><br /><img
+                        src="assets/images/logo-text.png" alt="Home" /></a> -->
+                <h3 class="box-title m-t-40 m-b-0">Regístrese ahora</h3><small> Crea una cuenta</small>
+                <div class="form-group m-t-20">
+                    <div class="col-xs-6">
+                        <input name="nombre" class="form-control" type="text" required placeholder="Nombre de la Empresa"
+                            ngModel>
+                    </div>
+                </div>
+                <div class="form-group m-t-20">
+                        <select class="form-control custom-select" name="tipo" data-placeholder="Tipo de Empresa"
+                        tabindex="1" ngModel required>
+                        <option value="" disabled selected>Tipo de Empresa</option>
+                        <option value="S.A.">S.A.</option>
+                        <option value="S.A.A.">S.A.A.</option>
+                        <option value="S.A.C.">S.A.C.</option>
+                        <option value="S.R.L">S.R.L</option>
+                    </select>
+                    <!-- <div class="col-xs-6">
+                        <input name="tipo" class="form-control" type="text" required placeholder="Tipo de Empresa"
+                            ngModel>
+                    </div> -->
+                </div>
+                <!-- <div class="form-group m-t-20">
+                    <div class="col-xs-6">
+                        <input name="inicio_periodo" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" required placeholder="Inicio de periodo contable"
+                            ngModel>
+                    </div>
+                </div>
+                <div class="form-group m-t-20">
+                    <div class="col-xs-6">
+                        <input name="fin_periodo" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" required placeholder="Fin de periodo contable"
+                            ngModel>
+                    </div>
+                </div> -->
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input name="usuario" class="form-control" type="text" required placeholder="Nombre de Usuario" ngModel>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input name="password" class="form-control" type="password" required placeholder="Contraseña"
+                            ngModel>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <input name="password2" class="form-control" type="password" required placeholder="Confirma contraseña"
+                            ngModel>
+                    </div>
+                </div>
+
+                <div class="form-group text-center m-t-20">
+                    <div class="col-xs-12">
+                        <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Registrarme</button>
+                    </div>
+                </div>
+                <div class="form-group m-b-0">
+                    <div class="col-sm-12 text-center">
+                        <p>¿Tienes una cuenta? <a routerLink="/" class="text-info m-l-5"><b>Ingresa ahora</b></a></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->

@@ -1,0 +1,251 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div>
+          <div class="row">
+            <div class="col-auto mr-auto"></div>
+            <div class="col-auto">
+              <a style="background-color:#745af2; border:#745af2 2px solid;" (click)="generatePDF()" class="dt-button buttons-print btn btn-primary"
+                tabindex="0" aria-controls="example23" href="#"><span>PDF</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div id="pdf">
+          <h5 class="card-title" style="text-align:center">{{empresaService.selectedEmpresa.nombre}}
+            {{empresaService.selectedEmpresa.tipo}}</h5>
+          <h3 class="card-title" style="text-align:center">ESTADO DE SITUACIÓN FINANCIERA</h3>
+          <h5 class="card-title" style="text-align:center">del {{empresaService.selectedEmpresa.inicio_periodo | date :
+            'dd/MM/yyyy' :'+0500'}} al {{empresaService.selectedEmpresa.fin_periodo | date : 'dd/MM/yyyy' :'+0500'}}</h5>
+          <br>
+          <table class="table color-bordered-table primary-bordered-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td style="font-weight: bold;">
+                  ACTIVO
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td style="font-weight: bold;">
+                  Activo Circulante
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr *ngFor="let act of activosCMostrar">
+                <ng-container *ngIf="act.monto != 0 && act.monto">
+                  <td>{{act.numero}}</td>
+                  <td>{{act.nombre}}</td>
+                  <td>{{act.monto}}</td>
+                  <td></td>
+                </ng-container>
+              </tr>
+              <tr>
+                <td></td>
+                <td style="font-weight: bold;">
+                  Total Activo Circulante
+                </td>
+                <td></td>
+                <td>{{sumaActivoC}}</td>
+              </tr>
+
+              <tr>
+                <td></td>
+                <td style="font-weight: bold;">
+                  Activo No Circulante
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr *ngFor="let act of activosNCMostrar">
+                <ng-container *ngIf="act.monto != 0 && act.monto">
+                  <td>{{act.numero}}</td>
+                  <td>{{act.nombre}}</td>
+                  <td>{{act.monto}}</td>
+                  <td></td>
+                </ng-container>
+              </tr>
+              <tr>
+                <td></td>
+                <td style="font-weight: bold;">
+                  Total Activo No Circulante
+                </td>
+                <td></td>
+                <td>{{sumaActivoNC}}</td>
+              </tr>
+
+              <tr>
+                <td></td>
+                <td style="font-weight: bold;">
+                  TOTAL ACTIVO
+                </td>
+                <td></td>
+                <td>{{sumaActivoNC + sumaActivoC}}</td>
+              </tr>
+
+            </tbody>
+          </table>
+
+          <table class="table color-bordered-table primary-bordered-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td style="font-weight: bold;">
+                  PASIVO
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td style="font-weight: bold;">
+                  Pasivo a corto plazo
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr *ngFor="let pas of pasivosCMostrar">
+                <ng-container *ngIf="pas.monto != 0 && pas.monto">
+                  <td>{{pas.numero}}</td>
+                  <td>{{pas.nombre}}</td>
+                  <td>{{pas.monto}}</td>
+                  <td></td>
+                </ng-container>
+              </tr>
+              <tr>
+                <td></td>
+                <td style="font-weight: bold;">
+                  Total pasivo a corto plazo
+                </td>
+                <td></td>
+                <td>{{sumaPasivoC}}</td>
+              </tr>
+
+              <tr>
+                <td></td>
+                <td style="font-weight: bold;">
+                  Pasivo a largo plazo
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr *ngFor="let pas of pasivosLMostrar">
+                <ng-container *ngIf="pas.monto != 0 && pas.monto">
+                  <td>{{pas.numero}}</td>
+                  <td>{{pas.nombre}}</td>
+                  <td>{{pas.monto}}</td>
+                  <td></td>
+                </ng-container>
+              </tr>
+              <tr>
+                <td></td>
+                <td style="font-weight: bold;">
+                  Total pasivo a largo plazo
+                </td>
+                <td></td>
+                <td>{{sumaPasivoL}}</td>
+              </tr>
+
+              <tr>
+                <td></td>
+                <td style="font-weight: bold;">
+                  TOTAL PASIVO
+                </td>
+                <td></td>
+                <td>{{sumaPasivoL+sumaPasivoC}}</td>
+              </tr>
+
+            </tbody>
+          </table>
+
+          <table class="table color-bordered-table primary-bordered-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td style="font-weight: bold;">
+                  CAPITAL
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr *ngFor="let cap of capitalMostrar">
+                <ng-container *ngIf="cap.monto != 0 && cap.monto">
+                  <td>{{cap.numero}}</td>
+                  <td>{{cap.nombre}}</td>
+                  <td>{{cap.monto}}</td>
+                  <td></td>
+                </ng-container>
+              </tr>
+
+              <tr>
+                <td></td>
+                <td style="font-weight: bold;">UTILIDAD NETA</td>
+                <td>{{utilidadNeta}}</td>
+                <td></td>
+              </tr>
+
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{sumaCapitales+utilidadNeta}}</td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+          <table class="table color-bordered-table primary-bordered-table">
+            <thead>
+              <tr>
+                <th>
+                  TOTAL ACTIVO
+                </th>
+                <th>
+                  TOTAL PASIVO + CAPITAL
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{sumaActivoNC + sumaActivoC}}</td>
+                <td>
+                  {{sumaPasivoL + sumaPasivoC + sumaCapitales +utilidadNeta}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

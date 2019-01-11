@@ -1,0 +1,75 @@
+<!-- ============================================================== -->
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<aside class="left-sidebar">
+  <!-- Sidebar scroll-->
+  <div class="scroll-sidebar">
+    <!-- Sidebar navigation-->
+    <nav class="sidebar-nav">
+      <ul id="sidebarnav">
+        <li class="user-profile">
+          <a id="configadminLogo" class="has-arrow waves-effect waves-dark" aria-expanded="false"><img src="../assets/images/users/profile.png"
+              alt="user" /><span class="hide-menu">{{usuarioService.usuario.usuario}}</span></a>
+          <ul id="configAdmin" aria-expanded="false" class="collapse">
+            <li><a href="javascript:void(0);" (click)="irConfiguracion()">Configuración</a></li>
+            <!-- <li><a href="javascript:void(0);" (click)="irUsuarios()">Usuarios</a></li> -->
+            <!-- <li><a href="javascript:void(0);" (click)="irAdministradorEditarEmpresa()">Editar Empresa</a></li> -->
+          </ul>
+        </li>
+        <li class="nav-devider"></li>
+        <li class="nav-small-cap">CONTABILIDAD</li>
+
+        <li id="opcionesAdmin"> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i class="mdi mdi-account-key"></i><span
+              class="hide-menu">Administrador</span></a>
+          <ul aria-expanded="false" class="collapse">
+            <li><a href="javascript:void(0);" (click)="irCuentas()">Cuentas</a></li>
+            <li><a href="javascript:void(0);" (click)="irUsuarios()">Usuarios</a></li>
+            <!-- <li><a href="javascript:void(0);" (click)="irAdministradorEditarEmpresa()">Editar Empresa</a></li> -->
+          </ul>
+        </li>
+
+        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i class="mdi mdi-bank"></i><span
+              class="hide-menu">{{empresaService.empresa.nombre}}</span></a>
+          <ul aria-expanded="false" class="collapse">
+            <li><a href="javascript:void(0);" (click)="irTransacciones()">Transacciones</a></li>
+            <li><a href="javascript:void(0);" (click)="irSaldos()">Saldos</a></li>
+            <li><a href="javascript:void(0);" (click)="irCatalogo()">Catálogo</a></li>
+          </ul>
+        </li>
+
+        <!-- <li> <a class="has-arrow waves-effect waves-dark"  aria-expanded="false"><i class="mdi mdi-book-open"></i><span
+              class="hide-menu">Catálogo de Cuenta</span></a>
+          <ul aria-expanded="false" class="collapse">
+            <li><a href="javascript:void(0);" (click)="irCatalogoActivos()">Activos</a></li>
+            <li><a href="javascript:void(0);" (click)="irCatalogoPasivos()">Pasivos</a></li>
+            <li><a href="javascript:void(0);" (click)="irCatalogoCapital()">Capital</a></li>
+            <li><a href="javascript:void(0);" (click)="irCatalogoGastos()">Gastos</a></li>
+            <li><a href="javascript:void(0);" (click)="irCatalogoIngresos()">Ingresos</a></li>
+          </ul>
+        </li> -->
+        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i class="mdi mdi-chart-areaspline"></i><span
+              class="hide-menu">Estados Financieros</span></a>
+          <ul aria-expanded="false" class="collapse">
+            <li><a href="javascript:void(0);" (click)="irEstadosLibroDiario()">Libro Diario</a></li>
+            <li><a href="javascript:void(0);" (click)="irEstadosLibroMayor()">Libro Mayor</a></li>
+            <li><a href="javascript:void(0);" (click)="irEstadosBalanzaDeComprobacion()">Balanza de comprobación</a></li>
+            <li><a href="javascript:void(0);" (click)="irEstadosEstadoDeResultado()">Estado de resultados</a></li>
+            <li><a href="javascript:void(0);" (click)="irEstadosBalanceGeneral()">Balance General</a></li>
+            <li><a href="javascript:void(0);" (click)="irEstadosVariacionDeCapital()">Estado de variaciòn de capital contable</a></li>
+          </ul>
+        </li>
+        <li> <a class="waves-effect waves-dark" (click)="irEmpresa()" aria-expanded="false"><i class="mdi mdi-information-outline"></i><span
+          class="hide-menu">Acerca de</span></a>
+          <!-- <ul aria-expanded="false" class="collapse">
+            <li><a href="javascript:void(0);">Información</a></li>
+          </ul> -->
+    </li>
+      </ul>
+    </nav>
+    <!-- End Sidebar navigation -->
+  </div>
+  <!-- End Sidebar scroll-->
+</aside>
+<!-- ============================================================== -->
+<!-- End Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->

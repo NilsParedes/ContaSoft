@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+          <div>
+              <div class="row">
+                  <div class="col-auto mr-auto"></div>
+                  <div class="col-auto">
+                      <a style="background-color: #398bf7; border:#398bf7 2px solid;" (click)="generatePDF()" class="dt-button buttons-print btn btn-primary" tabindex="0" aria-controls="example23" href="#"><span>PDF</span></a>
+                  </div>
+                </div>
+            </div>
+            <div id="pdf">
+                <h5 class="card-title" style="text-align:center">{{empresaService.selectedEmpresa.nombre}}
+                    {{empresaService.selectedEmpresa.tipo}}</h5>
+                  <h3 class="card-title" style="text-align:center">ESTADO DE RESULTADOS</h3>
+                  <h5 class="card-title" style="text-align:center">del {{empresaService.selectedEmpresa.inicio_periodo | date :
+                    'dd/MM/yyyy' :'+0500'}} al {{empresaService.selectedEmpresa.fin_periodo | date : 'dd/MM/yyyy' :'+0500'}}</h5>
+                  <br>
+                  <table class="table color-bordered-table info-bordered-table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td></td>
+                        <td style="font-weight: bold;">
+                          INGRESOS
+                        </td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr *ngFor="let ingreso of ingresosMostrar">
+                        <ng-container *ngIf="ingreso.monto != 0 && ingreso.monto">
+                            <td>{{ingreso.numero}}</td>
+                            <td>{{ingreso.nombre}}</td>
+                            <ng-container *ngIf="ingreso.accion == 'aumenta';else falso">
+                              <td></td>
+                              <td>{{ingreso.monto}}</td>
+                            </ng-container>
+                            <ng-template #falso>
+                              <td>{{ingreso.monto}}</td>
+                              <td></td>
+                            </ng-template>
+                        </ng-container>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td style="font-weight: bold;">TOTAL DE INGRESOS</td>
+                        <td></td>
+                        <td style="font-weight: bold;">{{sumaHaberIngresos-sumaDebeIngresos}}</td>
+                      </tr>
+          
+                      <tr>
+                        <td></td>
+                        <td style="font-weight: bold;">
+                          GASTOS
+                        </td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr *ngFor="let gasto of gastosMostrar">
+                        <ng-container *ngIf="gasto.monto != 0 && gasto.monto">
+                            <ng-container *ngIf="!(gasto.numero >= 64 && gasto.numero < 65)">
+                              <td>{{gasto.numero}}</td>
+                              <td>{{gasto.nombre}}</td>
+                              <ng-container *ngIf="(gasto.accion == 'aumenta' && gasto.tipo=='saldo') || (gasto.accion == 'disminuye' && gasto.tipo=='transaccion');else falso">
+                                <td>{{gasto.monto}}</td>
+                                <td></td>
+                              </ng-container>
+                              <ng-template #falso>
+                                <td></td>
+                                <td>{{gasto.monto}}</td>
+                              </ng-template>
+                          </ng-container>
+                        </ng-container>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td style="font-weight: bold;">TOTAL DE GASTOS</td>
+                        <td></td>
+                        <td style="font-weight: bold;">{{sumaDebeGastos-sumaHaberGastos}}</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td style="font-weight: bold;">UTILIDAD BRUTA</td>
+                        <td></td>
+                        <td style="font-weight: bold;">{{(sumaHaberIngresos-sumaDebeIngresos)-(sumaDebeGastos-sumaHaberGastos)}}</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td style="font-weight: bold;">IMPUESTO</td>
+                        <td></td>
+                        <td style="font-weight: bold;">{{impuesto}}</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td style="font-weight: bold;">UTILIDAD NETA</td>
+                        <td></td>
+                        <td style="font-weight: bold;">{{(sumaHaberIngresos-sumaDebeIngresos)-(sumaDebeGastos-sumaHaberGastos) - impuesto}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
