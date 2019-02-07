@@ -3,7 +3,7 @@ Sistema Contable
 
 #Developed by NilsParedes
 
-src -> NodeJS (Express)
-frontend -> Angular
-db -> MongoDB
+<li>src -> NodeJS (Express) </li>
+<li>frontend -> Angular</li>
+<li>db -> MongoDB</li>
 
